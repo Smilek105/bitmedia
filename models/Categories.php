@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\db\StaleObjectException;
+use yii\web\UploadedFile;
+
 
 /**
  * This is the model class for table "categories".
@@ -30,7 +33,7 @@ class Categories extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'image'], 'required'],
+            [['name'], 'required'],
             [['image'], 'string'],
             [['name'], 'string', 'max' => 32],
         ];
@@ -67,4 +70,34 @@ class Categories extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Courses::className(), ['id' => 'course_id'])->viaTable('courses_categories', ['category_id' => 'id']);
     }
+
+
+    /**
+     * @throws \Throwable
+     * @throws StaleObjectException
+     */
+    public function save($runValidation = true, $attributeNames = null)
+    {
+       $this->saveImage();
+
+        if ($this->getIsNewRecord()) {
+
+            return $this->insert($runValidation, $attributeNames);
+        }
+
+        return $this->update($runValidation, $attributeNames) !== false;
+    }
+
+    public function uploadFile($file)
+    {
+        $file->saveAs(Yii::getAlias('C:\OpenServer\domains\bitmedia\web\uploads\/'.$file->name));
+    }
+
+    public function saveImage(){
+        $file = UploadedFile::getInstance($this, 'image');
+        $this->uploadFile($file);
+        $this->image= $file->name;
+    }
+
+
 }
