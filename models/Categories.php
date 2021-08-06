@@ -78,7 +78,7 @@ class Categories extends \yii\db\ActiveRecord
      */
     public function save($runValidation = true, $attributeNames = null)
     {
-       $this->saveImage();
+        $this->saveImage();
 
         if ($this->getIsNewRecord()) {
 
@@ -88,15 +88,21 @@ class Categories extends \yii\db\ActiveRecord
         return $this->update($runValidation, $attributeNames) !== false;
     }
 
-    public function uploadFile($file)
+    public function saveImage()
     {
-        $file->saveAs(Yii::getAlias('C:\OpenServer\domains\bitmedia\web\uploads\/'.$file->name));
-    }
-
-    public function saveImage(){
+//        print_r($this->oldAttributes['image']);
+//        die;
+        if($this->oldAttributes['image'] != null ) {
+            if (file_exists(Yii::getAlias('C:\OpenServer\domains\bitmedia\web\uploads\/' . $this->oldAttributes['image']))) {
+                unlink('C:\OpenServer\domains\bitmedia\web\uploads\/' . $this->oldAttributes['image']);
+            }
+        }
         $file = UploadedFile::getInstance($this, 'image');
-        $this->uploadFile($file);
-        $this->image= $file->name;
+        if($file != null) {
+            $file_name = strtolower(md5(uniqid($file->baseName)) . '.' . $file->extension);
+            $file->saveAs(Yii::getAlias('C:\OpenServer\domains\bitmedia\web\uploads\/' . $file_name));
+            $this->image = $file_name;
+        }
     }
 
 
