@@ -33,7 +33,7 @@ class Categories extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'image'], 'required'],
+            [['name'], 'required'],
             [['image'], 'file', 'extensions' => 'jpeg,png,jpg'],
             [['name'], 'string', 'max' => 32],
         ];
@@ -89,16 +89,10 @@ class Categories extends \yii\db\ActiveRecord
         return $this->update($runValidation, $attributeNames) !== false;
     }
 
-    public function beforeSave($insert)
+    public function beforeSave($insert) : bool
     {
-        if ($this->oldAttributes != null) {
-            if ($this->oldAttributes['image'] != null) {
-                if (file_exists(Yii::getAlias('..\web\uploads\\' . $this->oldAttributes['image']))) {
-                    unlink('..\web\uploads\\' . $this->oldAttributes['image']);
-                }
-            }
-        }
-        return parent::beforeSave($insert); 
+        $this->deleteImage($this->oldAttributes);
+        return parent::beforeSave($insert);
     }
 
     public function saveImage()
@@ -113,16 +107,27 @@ class Categories extends \yii\db\ActiveRecord
 
     public function beforeDelete(): bool
     {
-        if ($this->attributes!= null) {
-            if ($this->attributes['image'] != null) {
-                if (file_exists(Yii::getAlias('..\web\uploads\\' . $this->attributes['image']))) {
-                    unlink('..\web\uploads\\' . $this->attributes['image']);
-                }
-            }
-        }
+        $this->deleteImage($this->attributes);
         return parent::beforeDelete();
 
     }
 
+    public function deleteImage($image)
+    {
+        if ($image!= null) {
+            if ($image['image'] != null) {
+                if (file_exists(Yii::getAlias('..\web\uploads\\' . $image['image']))) {
+                    unlink('..\web\uploads\\' . $image['image']);
+                }
+            }
+        }
+    }
+
+    public function getImage(){
+        if($this->image){
+            return '/uploads/'. $this->image;
+        }
+        return '/no-image.png';
+    }
 
 }
