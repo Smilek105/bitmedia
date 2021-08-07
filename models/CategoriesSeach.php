@@ -40,7 +40,7 @@ class CategoriesSeach extends Categories
      */
     public function search($params)
     {
-        $query = Categories::find();
+        $query = Categories::find()->orderBy('id');
 
         // add conditions that should always apply here
 

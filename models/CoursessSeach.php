@@ -40,7 +40,7 @@ class CoursessSeach extends Courses
      */
     public function search($params)
     {
-        $query = Courses::find();
+        $query = Courses::find()->orderBy('id');
 
         // add conditions that should always apply here
 

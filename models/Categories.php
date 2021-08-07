@@ -33,11 +33,12 @@ class Categories extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['image'], 'string'],
+            [['name', 'image'], 'required'],
+            [['image'], 'file', 'extensions' => 'jpeg,png,jpg'],
             [['name'], 'string', 'max' => 32],
         ];
     }
+
 
     /**
      * {@inheritdoc}
@@ -88,21 +89,39 @@ class Categories extends \yii\db\ActiveRecord
         return $this->update($runValidation, $attributeNames) !== false;
     }
 
-    public function saveImage()
+    public function beforeSave($insert)
     {
-//        print_r($this->oldAttributes['image']);
-//        die;
-        if($this->oldAttributes['image'] != null ) {
-            if (file_exists(Yii::getAlias('C:\OpenServer\domains\bitmedia\web\uploads\/' . $this->oldAttributes['image']))) {
-                unlink('C:\OpenServer\domains\bitmedia\web\uploads\/' . $this->oldAttributes['image']);
+        if ($this->oldAttributes != null) {
+            if ($this->oldAttributes['image'] != null) {
+                if (file_exists(Yii::getAlias('..\web\uploads\\' . $this->oldAttributes['image']))) {
+                    unlink('..\web\uploads\\' . $this->oldAttributes['image']);
+                }
             }
         }
+        return parent::beforeSave($insert); 
+    }
+
+    public function saveImage()
+    {
         $file = UploadedFile::getInstance($this, 'image');
-        if($file != null) {
+        if ($file != null) {
             $file_name = strtolower(md5(uniqid($file->baseName)) . '.' . $file->extension);
-            $file->saveAs(Yii::getAlias('C:\OpenServer\domains\bitmedia\web\uploads\/' . $file_name));
+            $file->saveAs(Yii::getAlias('..\web\uploads\\' . $file_name));
             $this->image = $file_name;
         }
+    }
+
+    public function beforeDelete(): bool
+    {
+        if ($this->attributes!= null) {
+            if ($this->attributes['image'] != null) {
+                if (file_exists(Yii::getAlias('..\web\uploads\\' . $this->attributes['image']))) {
+                    unlink('..\web\uploads\\' . $this->attributes['image']);
+                }
+            }
+        }
+        return parent::beforeDelete();
+
     }
 
 
