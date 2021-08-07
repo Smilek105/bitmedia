@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=> 'html',
                 'label' => 'Image',
                 'value' => function($data){
-                    return Html::img($data->getImage());
+                    return Html::img($data->getImage(), ['width'=>180]);
                 }
             ],
 
