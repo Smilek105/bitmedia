@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "courses".
@@ -76,13 +77,34 @@ class Courses extends \yii\db\ActiveRecord
         return $this->hasMany(CoursesCategories::className(), ['course_id' => 'id']);
     }
 
-    /**
-     * Gets query for [[Categories]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
+
     public function getCategories()
     {
-        return $this->hasMany(Categories::className(), ['id' => 'category_id'])->viaTable('courses_categories', ['course_id' => 'id']);
+        return $this->hasMany(Categories::className(), ['id' => 'category_id'])
+            ->viaTable('courses_categories', ['course_id' => 'id']);
     }
+
+    public function getSelectedCategories()
+    {
+        $selectedCategories = $this->getCategories()->select('id')->asArray()->all();
+        return ArrayHelper::getColumn($selectedCategories, 'id');
+    }
+
+    public function saveCategories($categories)
+    {
+        if (is_array($categories)) {
+            $this->clearCurrentCategories();
+
+            foreach ($categories as $category_id) {
+                $category = Categories::findOne($category_id);
+                $this->link('categories', $category);
+            }
+        }
+    }
+
+    public function clearCurrentCategories()
+    {
+        CoursesCategories::deleteAll(['course_id' => $this->id]);
+    }
+
 }

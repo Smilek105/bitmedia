@@ -1,28 +1,20 @@
 <?php
 
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Courses */
-/* @var $fullNames app\models\Courses */
 /* @var $form yii\widgets\ActiveForm */
-
+/* @var $categories app\models\Courses */
+/* @var $selectedCategories app\models\Courses */
 ?>
 
 <div class="courses-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'hour')->textInput() ?>
-
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'teacher')->dropDownList($fullNames) ?>
+    <?= Html::dropDownList('categories', $selectedCategories, $categories, ['class'=>'form-control',  'style' => "height: 150px;", 'multiple'=>true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

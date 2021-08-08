@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Set categories', ['set-categories', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
     </p>
 
     <?= DetailView::widget([

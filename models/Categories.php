@@ -62,6 +62,7 @@ class Categories extends \yii\db\ActiveRecord
         return $this->hasMany(CoursesCategories::className(), ['category_id' => 'id']);
     }
 
+
     /**
      * Gets query for [[Courses]].
      *
@@ -69,8 +70,10 @@ class Categories extends \yii\db\ActiveRecord
      */
     public function getCourses()
     {
-        return $this->hasMany(Courses::className(), ['id' => 'course_id'])->viaTable('courses_categories', ['category_id' => 'id']);
+        return $this->hasMany(Courses::className(), ['id' => 'course_id'])
+            ->viaTable('courses_categories', ['category_id' => 'id']);
     }
+
 
 
     /**
