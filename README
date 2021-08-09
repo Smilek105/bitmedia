@@ -9,3 +9,4 @@ The instructor's choice of the course is presented by the dropdown menu.
 Adding categories is done by dropdown with multiple choice.
 Search in all fields, with the exception of the category picture, has been implemented. The name of the picture is stored in the database, 
 the pictures themselves are located web / uploads.
+BitmediaDB - dumb. 
