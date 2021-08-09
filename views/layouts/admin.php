@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use app\widgets\Alert;
@@ -38,9 +39,11 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
+            ['label' => 'Главная', 'url' => ['/site/index']],
             ['label' => 'Курсы', 'url' => ['/admin/courses']],
             ['label' => 'Преподаватели', 'url' => ['/admin/teachers']],
             ['label' => 'Категории', 'url' => ['/admin/categories']]
+
         ],
     ]);
     NavBar::end();
