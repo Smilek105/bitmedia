@@ -46,6 +46,8 @@ class CategoriesSeach extends Categories
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => ['pageSize' => 10,
+            ],
         ]);
 
         $this->load($params);
