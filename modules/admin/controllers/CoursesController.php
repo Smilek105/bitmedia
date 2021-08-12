@@ -56,7 +56,7 @@ class CoursesController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'fullNames' => $this->getTeachersFullName(),
+            'fullNames' => $this->getTeacherFullNames(),
         ]);
     }
 
@@ -68,14 +68,13 @@ class CoursesController extends Controller
     public function actionCreate()
     {
         $model = new Courses();
-        $fullNames = $this->getTeachersFullName();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'fullNames' => $fullNames,
+            'fullNames' => $this->getTeacherFullNames(),
         ]);
     }
 
@@ -89,7 +88,7 @@ class CoursesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $fullNames = $this->getTeachersFullName();
+        $fullNames = $this->getTeacherFullNames();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -149,13 +148,13 @@ class CoursesController extends Controller
         ]);
     }
 
-    public function getTeachersFullName(): array
+    public static function getTeacherFullNames(): array
     {
         $sql = "SELECT id, CONCAT(surname, ' ',LEFT(name, 1), '. ', CASE WHEN (LEFT(patronymic,1)<> '') THEN CONCAT(LEFT(patronymic,1),'.') ELSE '' END) AS name FROM teachers";
         return ArrayHelper::map(\app\models\Teachers::findBySql($sql)->all(), 'id', 'name');
     }
 
-    public function getAllCategories(): array
+    public static function getAllCategories(): array
     {
         $sql = "SELECT id, name FROM categories";
         return ArrayHelper::map(\app\models\Teachers::findBySql($sql)->all(), 'id', 'name');

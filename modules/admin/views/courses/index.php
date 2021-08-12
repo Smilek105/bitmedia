@@ -1,11 +1,13 @@
 <?php
 
+use app\modules\admin\controllers\CoursesController;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CoursessSeach */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $teacherFullNames app\modules\admin\controllers\CoursesController*/
 
 $this->title = 'Courses';
 $this->params['breadcrumbs'][] = $this->title;
@@ -25,14 +27,35 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            ['attribute' => 'id',
+                'headerOptions' => ['style' => 'width:6%'],
+            ],
             'name',
-            'hour',
+            ['attribute' => 'hour',
+                'headerOptions' => ['style' => 'width:6%'],
+            ],
             'description:ntext',
-            'teacher',
+            ['attribute' => 'teacher',
+                'label' => 'Teacher_id',
+                'value' => 'teacher',
+                'headerOptions' => ['style' => 'width:5%'],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ],
+            [   'label' => 'Teacher',
+                'value' => 'teacherFullName',
+                'headerOptions' => ['style' => 'width:10%'],
+                'filter' => CoursesController::getTeacherFullNames(),
+                'filterInputOptions' => ['class' => 'form-control form-control-sm'],
+            ],
+
+            ['attribute' => 'Categories',
+                'format' => 'raw',
+                'value' => 'namesSelectedCategories',
+            ],
+
+            ['class' => 'yii\grid\ActionColumn',
+                'header' => 'Actions',
+            ],
         ],
     ]); ?>
 

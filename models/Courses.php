@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use phpDocumentor\Reflection\Types\This;
 use Yii;
 use yii\helpers\ArrayHelper;
 
@@ -72,19 +73,19 @@ class Courses extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCoursesCategories()
+    public function getCoursesCategories(): \yii\db\ActiveQuery
     {
         return $this->hasMany(CoursesCategories::className(), ['course_id' => 'id']);
     }
 
 
-    public function getCategories()
+    public function getCategories(): \yii\db\ActiveQuery
     {
         return $this->hasMany(Categories::className(), ['id' => 'category_id'])
             ->viaTable('courses_categories', ['course_id' => 'id']);
     }
 
-    public function getSelectedCategories()
+    public function getSelectedCategories(): array
     {
         $selectedCategories = $this->getCategories()->select('id')->asArray()->all();
         return ArrayHelper::getColumn($selectedCategories, 'id');
@@ -105,6 +106,29 @@ class Courses extends \yii\db\ActiveRecord
     public function clearCurrentCategories()
     {
         CoursesCategories::deleteAll(['course_id' => $this->id]);
+    }
+
+    public function getTeacherFullName(): string
+    {
+        $teacherFullName = $this->teacher0->surname . ' ' . mb_substr($this->teacher0->name, 0, 1) . '.';
+        if (!($this->teacher0->patronymic == '')) {
+            $teacherFullName .= ' ' . mb_substr($this->teacher0->patronymic, 0, 1) . '.';
+        }
+        return $teacherFullName;
+    }
+
+    public function getNamesSelectedCategories(): string
+    {
+        $selectedCategories = ArrayHelper::getColumn($this->getCategories()->select('name')->asArray()->all(), 'name');
+        $res = '';
+        for ($i=0; $i<count($selectedCategories); $i++) {
+            if($i != 0){
+                $res.= ' <br> ';
+            }
+            $res.=$selectedCategories[$i];
+        }
+
+        return $res;
     }
 
 }

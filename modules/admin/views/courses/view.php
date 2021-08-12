@@ -34,7 +34,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'hour',
             'description:ntext',
-            'teacher',
+            ['attribute' => 'teacher_id',
+                'value' => $model->teacher,
+                'captionOptions' => ['width' => '15%'],
+            ],
+            ['attribute' => 'Teacher ',
+                'value' => $model->getTeacherFullName(),
+            ],
+            ['label' => 'Categories ',
+                'format'=>'raw',
+                'value' => $model->getNamesSelectedCategories(),
+            ],
+
         ],
     ]) ?>
 
