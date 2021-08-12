@@ -34,14 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'description:ntext',
             ['attribute' => 'teacher',
-                'label' => 'Teacher_id',
-                'value' => 'teacher',
-                'headerOptions' => ['style' => 'width:5%'],
-
-            ],
-            [   'label' => 'Teacher',
+                'label' => 'Teacher',
                 'value' => 'teacherFullName',
-                'headerOptions' => ['style' => 'width:10%'],
+                'filter'=> CoursesController::getTeacherFullNames(),
+                'headerOptions' => ['style' => 'width:13%'],
+
             ],
 
             ['attribute' => 'Categories',
