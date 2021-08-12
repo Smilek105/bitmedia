@@ -20,8 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Courses', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -44,8 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
             [   'label' => 'Teacher',
                 'value' => 'teacherFullName',
                 'headerOptions' => ['style' => 'width:10%'],
-                'filter' => CoursesController::getTeacherFullNames(),
-                'filterInputOptions' => ['class' => 'form-control form-control-sm'],
             ],
 
             ['attribute' => 'Categories',
