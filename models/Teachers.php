@@ -50,6 +50,7 @@ class Teachers extends \yii\db\ActiveRecord
             'patronymic' => 'Patronymic',
             'email' => 'Email',
             'phone' => 'Phone',
+            'fullNames'
         ];
     }
 
@@ -61,5 +62,14 @@ class Teachers extends \yii\db\ActiveRecord
     public function getCourses()
     {
         return $this->hasMany(Courses::className(), ['teacher' => 'id']);
+    }
+
+    public function getFullName(): string
+    {
+        $fullName = $this->surname . ' ' . mb_substr($this->name, 0, 1) . '.';
+        if (!($this->patronymic == '')) {
+            $fullName .= ' ' . mb_substr($this->patronymic, 0, 1) . '.';
+        }
+        return $fullName;
     }
 }

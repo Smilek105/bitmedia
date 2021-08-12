@@ -7,7 +7,6 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CoursessSeach */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $teacherFullNames app\modules\admin\controllers\CoursesController*/
 
 $this->title = 'Courses';
 $this->params['breadcrumbs'][] = $this->title;
@@ -36,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'teacher',
                 'label' => 'Teacher',
                 'value' => 'teacherFullName',
-                'filter'=> CoursesController::getTeacherFullNames(),
+                'filter'=> \app\modules\admin\controllers\TeachersController::getFullNames(),
                 'headerOptions' => ['style' => 'width:13%'],
 
             ],

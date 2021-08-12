@@ -5,6 +5,7 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\models\Categories;
 use app\models\CategoriesSeach;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -125,4 +126,11 @@ class CategoriesController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public static function getAllCategories(): array
+    {
+        $sql = "SELECT id, name FROM categories";
+        return ArrayHelper::map(\app\models\Teachers::findBySql($sql)->all(), 'id', 'name');
+    }
+
 }

@@ -5,6 +5,7 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\models\Teachers;
 use app\models\TeachersSeach;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -124,4 +125,11 @@ class TeachersController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public static function getFullNames(): array
+    {
+        $sql = "SELECT id, CONCAT(surname, ' ',LEFT(name, 1), '. ', CASE WHEN (LEFT(patronymic,1)<> '') THEN CONCAT(LEFT(patronymic,1),'.') ELSE '' END) AS name FROM teachers";
+        return ArrayHelper::map(\app\models\Teachers::findBySql($sql)->all(), 'id', 'name');
+    }
+
 }

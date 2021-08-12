@@ -2,11 +2,9 @@
 
 namespace app\modules\admin\controllers;
 
-use app\models\Categories;
 use Yii;
 use app\models\Courses;
 use app\models\CoursessSeach;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -56,7 +54,7 @@ class CoursesController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'fullNames' => $this->getTeacherFullNames(),
+            'fullNames' => TeachersController::getFullNames(),
         ]);
     }
 
@@ -74,7 +72,7 @@ class CoursesController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'fullNames' => $this->getTeacherFullNames(),
+            'fullNames' => TeachersController::getFullNames(),
         ]);
     }
 
@@ -88,7 +86,7 @@ class CoursesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $fullNames = $this->getTeacherFullNames();
+        $fullNames = TeachersController::getFullNames();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -133,7 +131,7 @@ class CoursesController extends Controller
     {
         $course = $this->findModel($id);
         $selectedCategories = $course->getSelectedCategories();
-        $categories = $this->getAllCategories();
+        $categories = CategoriesController::getAllCategories();
 
         if (Yii::$app->request->isPost) {
             $categories = Yii::$app->request->post('categories');
@@ -147,19 +145,6 @@ class CoursesController extends Controller
             'selectedCategories' => $selectedCategories,
         ]);
     }
-
-    public static function getTeacherFullNames(): array
-    {
-        $sql = "SELECT id, CONCAT(surname, ' ',LEFT(name, 1), '. ', CASE WHEN (LEFT(patronymic,1)<> '') THEN CONCAT(LEFT(patronymic,1),'.') ELSE '' END) AS name FROM teachers";
-        return ArrayHelper::map(\app\models\Teachers::findBySql($sql)->all(), 'id', 'name');
-    }
-
-    public static function getAllCategories(): array
-    {
-        $sql = "SELECT id, name FROM categories";
-        return ArrayHelper::map(\app\models\Teachers::findBySql($sql)->all(), 'id', 'name');
-    }
-
 
 
 }
