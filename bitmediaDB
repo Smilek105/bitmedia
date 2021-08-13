@@ -2,7 +2,7 @@
 -- PostgreSQL database cluster dump
 --
 
--- Started on 2021-08-09 09:57:13
+-- Started on 2021-08-14 00:42:11
 
 SET default_transaction_read_only = off;
 
@@ -36,9 +36,9 @@ ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION
 --
 
 -- Dumped from database version 12.7
--- Dumped by pg_dump version 13.3
+-- Dumped by pg_dump version 12.7
 
--- Started on 2021-08-09 09:57:13
+-- Started on 2021-08-14 00:42:11
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -51,7 +51,7 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
--- Completed on 2021-08-09 09:57:13
+-- Completed on 2021-08-14 00:42:11
 
 --
 -- PostgreSQL database dump complete
@@ -68,9 +68,9 @@ SET row_security = off;
 --
 
 -- Dumped from database version 12.7
--- Dumped by pg_dump version 13.3
+-- Dumped by pg_dump version 12.7
 
--- Started on 2021-08-09 09:57:13
+-- Started on 2021-08-14 00:42:11
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -94,7 +94,7 @@ CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
 --
 -- TOC entry 2855 (class 0 OID 0)
 -- Dependencies: 1
--- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
@@ -216,12 +216,12 @@ ALTER TABLE public.teachers ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 --
 
 COPY public.categories (id, name, image) FROM stdin;
-1	Офлайн	591925f4e20ae4c9d034f33964fc7419.jpg
 2	Онлайн	acc7efc243f5d0ab494182a80b8e489a.jpg
 3	Языковые	e38df87dd097603df87c24aa3c232556.jpg
 4	IT	6d0b72a407028d97740bf50dcbabf80c.png
 5	Для детей	e1a46945f59fcd82ef0776654b9ec08a.png
 7	Спорт	ba41a2213e53df1b3c290face2711785.jpg
+1	Офлайн	97b9a63a7342a8f9d7cf2e4cf0729aee.jpg
 \.
 
 
@@ -234,7 +234,6 @@ COPY public.categories (id, name, image) FROM stdin;
 COPY public.courses (id, name, hour, description, teacher) FROM stdin;
 3	Курс английского Elementary	26	Курс английского Elementary	2
 4	Курсы вождения	40	Курсы для подготовки к сдаче экзамена на получение водительского удостоверения в МРЭО	1
-2	Курс английского Beginner	16	Курс английского для новичков	1
 5	Курс английского Intermidiate	72	Курс английского Intermidiate	2
 6	Курс английского Anvaned	85	Курс английского Anvaned	2
 7	Java daveloper	160	Java daveloper	2
@@ -245,6 +244,8 @@ COPY public.courses (id, name, hour, description, teacher) FROM stdin;
 12	Изобразительное искусство	15	Изобразительное искусство	2
 13	Стрельба из лука	38	Стрельба из лука	1
 14	Web design	30	Web design	1
+2	Курс английского Beginner	16	Курс английского для новичков	1
+15	Основы микроэлектроники	150	Основы микроэлектроники	2
 \.
 
 
@@ -255,6 +256,9 @@ COPY public.courses (id, name, hour, description, teacher) FROM stdin;
 --
 
 COPY public.courses_categories (course_id, category_id) FROM stdin;
+2	2
+2	3
+2	5
 4	1
 3	2
 3	3
@@ -272,18 +276,15 @@ COPY public.courses_categories (course_id, category_id) FROM stdin;
 10	1
 10	5
 10	7
-11	1
-11	5
-11	7
-2	2
-2	3
-2	5
 12	1
 12	5
 13	1
 13	7
 14	2
 14	4
+11	1
+11	5
+11	7
 \.
 
 
@@ -296,6 +297,7 @@ COPY public.courses_categories (course_id, category_id) FROM stdin;
 COPY public.teachers (id, surname, name, patronymic, email, phone) FROM stdin;
 1	Иванов	Иван	Иванович	ivanov@gmail.com	380996586586
 2	Петров	Петр		petrov@gmail.com	380996565454
+3	Мороз	Игорь	Станиславович	moroz@gmail.com	38095362568
 \.
 
 
@@ -305,7 +307,7 @@ COPY public.teachers (id, surname, name, patronymic, email, phone) FROM stdin;
 -- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.categories_id_seq', 16, true);
+SELECT pg_catalog.setval('public.categories_id_seq', 17, true);
 
 
 --
@@ -314,7 +316,7 @@ SELECT pg_catalog.setval('public.categories_id_seq', 16, true);
 -- Name: courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.courses_id_seq', 14, true);
+SELECT pg_catalog.setval('public.courses_id_seq', 15, true);
 
 
 --
@@ -323,7 +325,7 @@ SELECT pg_catalog.setval('public.courses_id_seq', 14, true);
 -- Name: teachers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.teachers_id_seq', 2, true);
+SELECT pg_catalog.setval('public.teachers_id_seq', 3, true);
 
 
 --
@@ -389,13 +391,13 @@ ALTER TABLE ONLY public.courses
     ADD CONSTRAINT fk_course_teacher FOREIGN KEY (teacher) REFERENCES public.teachers(id) NOT VALID;
 
 
--- Completed on 2021-08-09 09:57:14
+-- Completed on 2021-08-14 00:42:11
 
 --
 -- PostgreSQL database dump complete
 --
 
--- Completed on 2021-08-09 09:57:14
+-- Completed on 2021-08-14 00:42:11
 
 --
 -- PostgreSQL database cluster dump complete
