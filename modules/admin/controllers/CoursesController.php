@@ -41,6 +41,7 @@ class CoursesController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'fullNames' => TeachersController::getFullNames(),
         ]);
     }
 
@@ -86,14 +87,13 @@ class CoursesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $fullNames = TeachersController::getFullNames();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'fullNames' => $fullNames,
+            'fullNames' => TeachersController::getFullNames(),
         ]);
     }
 

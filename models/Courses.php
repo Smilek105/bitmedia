@@ -108,14 +108,6 @@ class Courses extends \yii\db\ActiveRecord
         CoursesCategories::deleteAll(['course_id' => $this->id]);
     }
 
-    public function getTeacherFullName(): string
-    {
-        $teacherFullName = $this->teacher0->surname . ' ' . mb_substr($this->teacher0->name, 0, 1) . '.';
-        if (!($this->teacher0->patronymic == '')) {
-            $teacherFullName .= ' ' . mb_substr($this->teacher0->patronymic, 0, 1) . '.';
-        }
-        return $teacherFullName;
-    }
 
     public function getNamesSelectedCategories(): string
     {

@@ -1,13 +1,14 @@
 <?php
 
+use app\modules\admin\controllers\CoursesController;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Courses */
-/* @var $fullNames app\models\Courses */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $fullNames CoursesController */
 
 ?>
 
