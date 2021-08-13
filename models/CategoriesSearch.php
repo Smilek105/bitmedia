@@ -4,21 +4,21 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Courses;
 
 /**
- * CoursessSeach represents the model behind the search form of `app\models\Courses`.
+ * CategoriesSeach represents the model behind the search form of `app\models\Categories`.
  */
-class CoursessSeach extends Courses
+class CategoriesSearch extends Categories
 {
     /**
      * {@inheritdoc}
+     *
      */
     public function rules()
     {
         return [
-            [['id', 'hour', 'teacher'], 'integer'],
-            [['name', 'description'], 'safe'],
+            [['id'], 'integer'],
+            [['name', 'image'], 'safe'],
         ];
     }
 
@@ -27,7 +27,6 @@ class CoursessSeach extends Courses
      */
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
 
@@ -40,7 +39,7 @@ class CoursessSeach extends Courses
      */
     public function search($params)
     {
-        $query = Courses::find()->orderBy('id');
+        $query = Categories::find()->orderBy('id');
 
         // add conditions that should always apply here
 
@@ -65,12 +64,10 @@ class CoursessSeach extends Courses
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'hour' => $this->hour,
-            'teacher' => $this->teacher,
         ]);
 
         $query->andFilterWhere(['ilike', 'name', $this->name])
-            ->andFilterWhere(['ilike', 'description', $this->description]);
+            ->andFilterWhere(['ilike', 'image', $this->image]);
 
         return $dataProvider;
     }

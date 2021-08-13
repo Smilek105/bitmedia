@@ -4,7 +4,7 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\Teachers;
-use app\models\TeachersSeach;
+use app\models\TeachersSearch;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -36,7 +36,7 @@ class TeachersController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new TeachersSeach();
+        $searchModel = new TeachersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +48,6 @@ class TeachersController extends Controller
     /**
      * Displays a single Teachers model.
      * @param integer $id
-     * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)

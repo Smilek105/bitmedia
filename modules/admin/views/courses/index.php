@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\CoursessSeach */
+/* @var $searchModel app\models\CoursesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $fullNames CoursesController */
 /* @var $model Courses */

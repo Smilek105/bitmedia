@@ -4,7 +4,7 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\Courses;
-use app\models\CoursessSeach;
+use app\models\CoursesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,7 +35,7 @@ class CoursesController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CoursessSeach();
+        $searchModel = new CoursesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -136,7 +136,7 @@ class CoursesController extends Controller
         if (Yii::$app->request->isPost) {
             $categories = Yii::$app->request->post('categories');
             $course->saveCategories($categories);
-            return $this->redirect(['view', 'id'=>$course->id]);
+            return $this->redirect(['view', 'id' => $course->id]);
         }
 
         return $this->render('categories', [

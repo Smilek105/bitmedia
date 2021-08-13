@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "courses_categories".
@@ -13,7 +14,7 @@ use Yii;
  * @property Categories $category
  * @property Courses $course
  */
-class CoursesCategories extends \yii\db\ActiveRecord
+class CoursesCategories extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -52,7 +53,7 @@ class CoursesCategories extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Category]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCategory()
     {
@@ -62,7 +63,7 @@ class CoursesCategories extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Course]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCourse()
     {

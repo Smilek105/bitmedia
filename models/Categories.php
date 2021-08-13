@@ -75,7 +75,6 @@ class Categories extends \yii\db\ActiveRecord
     }
 
 
-
     /**
      * @throws \Throwable
      * @throws StaleObjectException
@@ -92,7 +91,7 @@ class Categories extends \yii\db\ActiveRecord
         return $this->update($runValidation, $attributeNames) !== false;
     }
 
-    public function beforeSave($insert) : bool
+    public function beforeSave($insert): bool
     {
         $this->deleteImage($this->oldAttributes);
         return parent::beforeSave($insert);
@@ -117,7 +116,7 @@ class Categories extends \yii\db\ActiveRecord
 
     public function deleteImage($image)
     {
-        if ($image!= null) {
+        if ($image != null) {
             if ($image['image'] != null) {
                 if (file_exists(Yii::getAlias('..\web\uploads\\' . $image['image']))) {
                     unlink('..\web\uploads\\' . $image['image']);
@@ -126,9 +125,10 @@ class Categories extends \yii\db\ActiveRecord
         }
     }
 
-    public function getImage(){
-        if($this->image){
-            return '/uploads/'. $this->image;
+    public function getImage()
+    {
+        if ($this->image) {
+            return '/uploads/' . $this->image;
         }
         return '/no-image.png';
     }

@@ -4,12 +4,11 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Categories;
 
 /**
- * CategoriesSeach represents the model behind the search form of `app\models\Categories`.
+ * CoursessSeach represents the model behind the search form of `app\models\Courses`.
  */
-class CategoriesSeach extends Categories
+class CoursesSearch extends Courses
 {
     /**
      * {@inheritdoc}
@@ -17,8 +16,8 @@ class CategoriesSeach extends Categories
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['name', 'image'], 'safe'],
+            [['id', 'hour', 'teacher'], 'integer'],
+            [['name', 'description'], 'safe'],
         ];
     }
 
@@ -40,19 +39,19 @@ class CategoriesSeach extends Categories
      */
     public function search($params)
     {
-        $query = Categories::find()->orderBy('id');
+        $query = Courses::find()->orderBy('id');
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => ['pageSize' => 10],
-                'sort' => new \yii\data\Sort([
-                    'attributes' => [
-                        'id',
-                    ],
-                ])
-            ]);
+            'sort' => new \yii\data\Sort([
+                'attributes' => [
+                    'id',
+                ],
+            ])
+        ]);
 
         $this->load($params);
 
@@ -65,10 +64,12 @@ class CategoriesSeach extends Categories
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'hour' => $this->hour,
+            'teacher' => $this->teacher,
         ]);
 
         $query->andFilterWhere(['ilike', 'name', $this->name])
-            ->andFilterWhere(['ilike', 'image', $this->image]);
+            ->andFilterWhere(['ilike', 'description', $this->description]);
 
         return $dataProvider;
     }

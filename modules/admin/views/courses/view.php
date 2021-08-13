@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => $model->teacher0->getFullName(),
             ],
             ['label' => 'Categories ',
-                'format'=>'raw',
+                'format' => 'raw',
                 'value' => $model->getNamesSelectedCategories(),
             ],
 

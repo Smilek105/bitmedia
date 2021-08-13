@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "teachers".
@@ -16,7 +17,7 @@ use Yii;
  *
  * @property Courses[] $courses
  */
-class Teachers extends \yii\db\ActiveRecord
+class Teachers extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -57,7 +58,7 @@ class Teachers extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Courses]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCourses()
     {

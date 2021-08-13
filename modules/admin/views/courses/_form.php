@@ -1,7 +1,6 @@
 <?php
 
 use app\modules\admin\controllers\CoursesController;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 

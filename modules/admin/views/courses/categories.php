@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
     <br>
-    <?= Html::dropDownList('categories', $selectedCategories, $categories, ['class'=>'form-control',  'style' => "height: 160px;", 'multiple'=>true]) ?>
+    <?= Html::dropDownList('categories', $selectedCategories, $categories, ['class' => 'form-control', 'style' => "height: 160px;", 'multiple' => true]) ?>
 
     <br>
     <div class="form-group">

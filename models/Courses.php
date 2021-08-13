@@ -2,8 +2,8 @@
 
 namespace app\models;
 
-use phpDocumentor\Reflection\Types\This;
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -19,7 +19,7 @@ use yii\helpers\ArrayHelper;
  * @property CoursesCategories[] $coursesCategories
  * @property Categories[] $categories
  */
-class Courses extends \yii\db\ActiveRecord
+class Courses extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -61,7 +61,7 @@ class Courses extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Teacher0]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTeacher0()
     {
@@ -71,15 +71,15 @@ class Courses extends \yii\db\ActiveRecord
     /**
      * Gets query for [[CoursesCategories]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getCoursesCategories(): \yii\db\ActiveQuery
+    public function getCoursesCategories(): ActiveQuery
     {
         return $this->hasMany(CoursesCategories::className(), ['course_id' => 'id']);
     }
 
 
-    public function getCategories(): \yii\db\ActiveQuery
+    public function getCategories(): ActiveQuery
     {
         return $this->hasMany(Categories::className(), ['id' => 'category_id'])
             ->viaTable('courses_categories', ['course_id' => 'id']);
@@ -113,11 +113,11 @@ class Courses extends \yii\db\ActiveRecord
     {
         $selectedCategories = ArrayHelper::getColumn($this->getCategories()->select('name')->asArray()->all(), 'name');
         $res = '';
-        for ($i=0; $i<count($selectedCategories); $i++) {
-            if($i != 0){
-                $res.= ' <br> ';
+        for ($i = 0; $i < count($selectedCategories); $i++) {
+            if ($i != 0) {
+                $res .= ' <br> ';
             }
-            $res.=$selectedCategories[$i];
+            $res .= $selectedCategories[$i];
         }
 
         return $res;
