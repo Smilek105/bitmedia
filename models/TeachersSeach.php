@@ -46,8 +46,12 @@ class TeachersSeach extends Teachers
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['pageSize' => 10,
-            ],
+            'pagination' => ['pageSize' => 10],
+            'sort' => new \yii\data\Sort([
+                'attributes' => [
+                    'id',
+                ],
+            ])
         ]);
 
         $this->load($params);
