@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Courses;
 use app\modules\admin\controllers\CoursesController;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -7,6 +8,8 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CoursessSeach */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $fullNames CoursesController */
+/* @var $model Courses */
 
 $this->title = 'Courses';
 $this->params['breadcrumbs'][] = $this->title;
@@ -23,19 +26,29 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn',
+                'headerOptions' => ['style' => 'width:3%'],],
             ['attribute' => 'id',
                 'headerOptions' => ['style' => 'width:6%'],
             ],
-            'name',
+
+            ['attribute' => 'name',
+                'headerOptions' => ['style' => 'width:12%'],
+            ],
             ['attribute' => 'hour',
                 'headerOptions' => ['style' => 'width:6%'],
             ],
-            'description:ntext',
+            ['attribute' => 'description',
+                'format' => 'ntext',
+                'headerOptions' => ['style' => 'width:50%'],
+            ],
             ['attribute' => 'teacher',
                 'label' => 'Teacher',
-                'value' => 'teacherFullName',
-                'filter'=> \app\modules\admin\controllers\TeachersController::getFullNames(),
+                'value' => function ($model) {
+                    return $model->teacher0->getFullName();
+                }
+                ,
+                'filter' => $fullNames,
                 'headerOptions' => ['style' => 'width:13%'],
 
             ],
@@ -43,6 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'Categories',
                 'format' => 'raw',
                 'value' => 'namesSelectedCategories',
+                'headerOptions' => ['style' => 'width:10%'],
             ],
 
             ['class' => 'yii\grid\ActionColumn',
