@@ -11,7 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TeachersController implements the CRUD actions for Teachers model.
+ * TeacherController implements the CRUD actions for Teachers model.
  */
 class TeachersController extends Controller
 {

@@ -29,6 +29,14 @@ class Courses extends ActiveRecord
         return 'courses';
     }
 
+    public function extraFields()
+    {
+        return [
+            'teacher' => 'teacher0',
+            'categories'
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */

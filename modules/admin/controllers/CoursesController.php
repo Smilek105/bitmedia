@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CoursesController implements the CRUD actions for Courses model.
+ * CourseController implements the CRUD actions for Courses model.
  */
 class CoursesController extends Controller
 {

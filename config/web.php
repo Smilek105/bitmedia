@@ -57,6 +57,18 @@ $config = [
         'admin' => [
             'class' => 'app\modules\admin\Module',
         ],
+
+        'api' => [
+            'class' => app\modules\api\Module::class
+            ,
+            'controllerMap' => [
+                'categories' => \app\modules\api\controllers\CategoryController::class,
+                'courses' => \app\modules\api\controllers\CourseController::class,
+                'teachers' => \app\modules\api\controllers\TeacherController::class
+            ],
+        ]
+
+
     ],
 
 
