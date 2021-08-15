@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\db\StaleObjectException;
+use yii\web\Linkable;
 use yii\web\UploadedFile;
 
 
@@ -19,6 +20,14 @@ use yii\web\UploadedFile;
  */
 class Categories extends \yii\db\ActiveRecord
 {
+
+    public function extraFields()
+    {
+        return [
+            'courses',
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
