@@ -1,10 +1,6 @@
 Test exmple 
 Сontains admin module for CRUD. 
 No authorization or accounts.
-all courses are displayed on site / course, paginats are implemented. The $ rowOnPage variable determines the number of records per page.
-Page navigation is done with navbar
-Below is the navigation through the course output pages.
-At the top it is possible to select a category (by clicking on the name) to display all courses that have this category.
 The instructor's choice of the course is presented by the dropdown menu.
 Adding categories is done by dropdown with multiple choice.
 Search in all fields, with the exception of the category picture, has been implemented. The name of the picture is stored in the database, 
