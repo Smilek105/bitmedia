@@ -93,7 +93,10 @@ class Categories extends \yii\db\ActiveRecord
 
     public function beforeSave($insert): bool
     {
-        $this->deleteImage($this->oldAttributes);
+        if($this->attributes['image'] != $this->oldAttributes['image']){
+            $this->deleteImage($this->oldAttributes);
+        }
+
         return parent::beforeSave($insert);
     }
 
