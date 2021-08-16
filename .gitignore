@@ -37,13 +37,7 @@ tests/_support/_generated
 
 .bowerrc
 #.gitignore
-LICENSE.md
+
 README.md
-Vagrantfile/
-assecc/
-codeception.yml
-comands/
-composer.json
-composer.lock
-docker-compose.yml
+
 
